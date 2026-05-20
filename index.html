@@ -3,64 +3,211 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My First Webpage</title>
+  <title>Sign in - Google Accounts</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #202124;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 2rem;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    h1 {
-      color: #4a4adb;
-    }
-
-    p {
-      line-height: 1.6;
     }
 
     .card {
-      background: white;
+      border: 1px solid #dadce0;
       border-radius: 8px;
-      padding: 1.5rem;
-      margin-top: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 48px 40px 36px;
+      width: 100%;
+      max-width: 450px;
     }
 
-    button {
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-      background: #4a4adb;
+    .google-logo {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .google-logo svg {
+      width: 75px;
+      height: 24px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 8px;
+      color: #202124;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #202124;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 13px 15px;
+      font-size: 16px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      outline: none;
+      color: #202124;
+      background: transparent;
+      transition: border 0.2s;
+    }
+
+    .input-group input:focus {
+      border: 2px solid #1a73e8;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #80868b;
+      pointer-events: none;
+      transition: all 0.15s ease;
+      background: #fff;
+      padding: 0 4px;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: 0;
+      font-size: 12px;
+      color: #1a73e8;
+    }
+
+    .forgot {
+      display: block;
+      margin-top: -12px;
+      margin-bottom: 28px;
+      font-size: 14px;
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    .forgot:hover { text-decoration: underline; }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .create-account {
+      font-size: 14px;
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .create-account:hover { text-decoration: underline; }
+
+    .next-btn {
+      background: #1a73e8;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 4px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 1rem;
+      letter-spacing: 0.25px;
+      transition: background 0.2s, box-shadow 0.2s;
     }
 
-    button:hover {
-      background: #3636b0;
+    .next-btn:hover {
+      background: #1765cc;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      font-size: 12px;
+      color: #80868b;
+    }
+
+    footer a {
+      color: #80868b;
+      text-decoration: none;
+      margin-left: 16px;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    .footer-links { display: flex; }
   </style>
 </head>
 <body>
 
-  <h1>Hello, World!</h1>
-  <p>Welcome to my first webpage. This is a paragraph of text.</p>
+  <div class="container">
+    <div class="card">
 
-  <div class="card">
-    <h2>About Me</h2>
-    <p>Hi! I am just getting started with web development. This is my test page hosted on GitHub Pages.</p>
-    <button onclick="alert('Button clicked!')">Click Me</button>
+      <!-- Google Logo -->
+      <div class="google-logo">
+        <svg viewBox="0 0 75 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 10.2v3.6h5.1c-.2 1.2-.9 2.2-1.9 2.9l3 2.3c1.8-1.6 2.8-4 2.8-6.9 0-.7-.1-1.3-.2-1.9H12z" fill="#4285F4"/>
+          <path d="M5.3 14.3l-.7.5-2.4 1.9C3.7 19.1 7.6 21.5 12 21.5c2.6 0 4.7-.8 6.3-2.3l-3-2.3c-.8.6-1.9.9-3.3.9-2.5 0-4.6-1.7-5.4-3.9l-.3.4z" fill="#34A853"/>
+          <path d="M2.2 6.3C1.4 7.9 1 9.6 1 11.5s.4 3.6 1.2 5.2l3.1-2.4c-.2-.7-.3-1.4-.3-2.2 0-.8.1-1.5.3-2.2L2.2 6.3z" fill="#FBBC05"/>
+          <path d="M12 5.5c1.4 0 2.7.5 3.7 1.4l2.8-2.8C16.7 2.6 14.5 1.5 12 1.5 7.6 1.5 3.7 3.9 2.2 7.5l3.1 2.4C6.2 7.2 8.9 5.5 12 5.5z" fill="#EA4335"/>
+        </svg>
+      </div>
+
+      <h1>Sign in</h1>
+      <p class="subtitle">Use your Google Account</p>
+
+      <div class="input-group">
+        <input type="text" id="email" placeholder=" " />
+        <label for="email">Email or phone</label>
+      </div>
+
+      <a href="#" class="forgot">Forgot email?</a>
+
+      <p style="font-size:14px; color:#202124; margin-bottom: 16px;">
+        Not your computer? Use a Private window to sign in.
+        <a href="#" style="color:#1a73e8; text-decoration:none;">Learn more</a>
+      </p>
+
+      <div class="actions">
+        <a href="#" class="create-account">Create account</a>
+        <button class="next-btn" onclick="document.getElementById('email').value ? alert('Proceeding to password step...') : alert('Please enter your email.')">Next</button>
+      </div>
+
+    </div>
   </div>
 
-  <div class="card">
-    <h2>My Links</h2>
-    <p><a href="https://github.com">Visit my GitHub</a></p>
-  </div>
+  <footer>
+    <span>English (United States)</span>
+    <div class="footer-links">
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </footer>
 
 </body>
 </html>
