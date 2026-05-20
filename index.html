@@ -1,452 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Website</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vijay Garments — Quality You Can Wear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --red: #C0001A;
+      --red-dark: #8B0013;
+      --red-light: #FF1A35;
+      --white: #FFFFFF;
+      --off-white: #FDF8F8;
+      --gray: #F5F0F0;
+      --text: #1A0A0A;
+      --text-muted: #6B4E4E;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
-    }
-
-    /* NAV */
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+ 
     nav {
-      background: #1a73e8;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--white); border-bottom: 2px solid var(--red);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 68px;
+      box-shadow: 0 2px 20px rgba(192,0,26,0.1);
     }
-
-    .logo {
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
+    .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+    .nav-logo-icon {
+      width: 40px; height: 40px; background: var(--red); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px;
     }
-
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--text); }
+    .nav-logo-text span { color: var(--red); }
+    .nav-links { display: flex; gap: 4px; }
     .nav-links a {
-      color: white;
-      text-decoration: none;
-      margin-left: 24px;
-      font-size: 15px;
-      padding: 6px 12px;
-      border-radius: 4px;
-      transition: background 0.2s;
+      text-decoration: none; color: var(--text-muted); font-size: 15px; font-weight: 500;
+      padding: 8px 18px; border-radius: 6px; transition: all 0.2s; cursor: pointer;
     }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      background: rgba(255,255,255,0.2);
-    }
-
-    /* PAGES */
-    .page { display: none; }
+    .nav-links a:hover, .nav-links a.active { background: var(--red); color: white; }
+ 
+    .page { display: none; padding-top: 68px; min-height: 100vh; }
     .page.active { display: block; }
-
-    /* HERO */
+ 
     .hero {
-      background: linear-gradient(135deg, #1a73e8, #0d47a1);
-      color: white;
-      text-align: center;
-      padding: 100px 2rem;
+      position: relative; min-height: 92vh;
+      background: var(--text); display: flex; align-items: center; overflow: hidden;
     }
-
-    .hero h1 { font-size: 48px; margin-bottom: 16px; }
-    .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 32px; }
-
-    .hero-btn {
-      background: white;
-      color: #1a73e8;
-      border: none;
-      padding: 14px 32px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: box-shadow 0.2s;
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80');
+      background-size: cover; background-position: center; opacity: 0.35;
     }
-
-    .hero-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-
-    /* SECTIONS */
-    .section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 2rem;
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(192,0,26,0.85) 0%, rgba(26,10,10,0.7) 60%, transparent 100%);
     }
-
-    .section h2 {
-      font-size: 32px;
-      color: #1a73e8;
-      margin-bottom: 16px;
+    .hero-content {
+      position: relative; z-index: 2; padding: 4rem 5rem; max-width: 700px;
+      animation: fadeUp 0.8s ease both;
     }
-
-    .section p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 16px;
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3); color: white;
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;
     }
-
-    /* CARDS */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(42px,6vw,72px);
+      font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px;
     }
-
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      text-align: center;
+    .hero h1 em { font-style: italic; color: #FFB3BC; }
+    .hero p { font-size: 18px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 36px; font-weight: 300; max-width: 520px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: white; color: var(--red); border: none; padding: 14px 32px;
+      border-radius: 6px; font-size: 15px; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; font-family: 'DM Sans', sans-serif;
     }
-
-    .card .icon { font-size: 36px; margin-bottom: 12px; }
-    .card h3 { margin-bottom: 8px; color: #202124; }
-    .card p { font-size: 14px; color: #666; }
-
-    /* ABOUT */
-    .team {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
+    .btn-primary:hover { background: var(--red); color: white; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,0,26,0.4); }
+    .btn-outline {
+      background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.5);
+      padding: 14px 32px; border-radius: 6px; font-size: 15px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
     }
-
-    .team-card {
-      background: white;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      text-align: center;
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+    .hero-stats {
+      position: absolute; bottom: 40px; right: 5rem; z-index: 2;
+      display: flex; gap: 40px; animation: fadeUp 0.8s 0.3s ease both;
     }
-
-    .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: #1a73e8;
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
+    .stat { text-align: center; color: white; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: white; display: block; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; }
+ 
+    .collections { padding: 80px 4rem; background: var(--off-white); }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-tag { display: inline-block; color: var(--red); font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px,4vw,42px); font-weight: 700; color: var(--text); margin-bottom: 16px; }
+    .section-header p { font-size: 17px; color: var(--text-muted); max-width: 500px; margin: 0 auto; line-height: 1.7; }
+    .collection-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+    .collection-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; }
+    .collection-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .collection-card:hover img { transform: scale(1.06); }
+    .collection-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,10,10,0.85) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
     }
-
-    .team-card h3 { font-size: 16px; margin-bottom: 4px; }
-    .team-card p { font-size: 13px; color: #888; }
-
-    /* CAREERS */
-    .job {
-      background: white;
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .collection-tag {
+      background: var(--red); color: white; font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 4px;
+      display: inline-block; margin-bottom: 10px; width: fit-content;
     }
-
-    .job h3 { font-size: 17px; margin-bottom: 4px; }
-    .job p { font-size: 14px; color: #888; }
-
-    .job-badge {
-      background: #e8f0fe;
-      color: #1a73e8;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      white-space: nowrap;
+    .collection-overlay h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: white; font-weight: 700; margin-bottom: 6px; }
+    .collection-overlay p { font-size: 14px; color: rgba(255,255,255,0.75); }
+ 
+    .why { padding: 80px 4rem; background: white; }
+    .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; max-width: 1200px; margin: 0 auto; }
+    .why-card { text-align: center; padding: 40px 24px; border-radius: 12px; border: 1.5px solid #F0E0E0; transition: all 0.25s; }
+    .why-card:hover { border-color: var(--red); box-shadow: 0 8px 32px rgba(192,0,26,0.1); transform: translateY(-4px); }
+    .why-icon { width: 64px; height: 64px; background: var(--gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; transition: background 0.25s; }
+    .why-card:hover .why-icon { background: var(--red); }
+    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 10px; color: var(--text); }
+    .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+ 
+    .banner { background: var(--red); padding: 60px 4rem; text-align: center; position: relative; overflow: hidden; }
+    .banner::before { content:''; position: absolute; top:-50%; left:-10%; width:400px; height:400px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+    .banner h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px,4vw,44px); color: white; margin-bottom: 16px; position: relative; }
+    .banner p { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 32px; position: relative; }
+    .banner button { background: white; color: var(--red); border: none; padding: 14px 40px; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; position: relative; }
+    .banner button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+ 
+    .about-hero { background: var(--text); padding: 80px 4rem; position: relative; overflow: hidden; }
+    .about-hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1400&q=80'); background-size: cover; background-position: center; opacity: 0.2; }
+    .about-hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .about-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px,5vw,56px); color: white; font-weight: 900; margin-bottom: 20px; line-height: 1.15; }
+    .about-hero p { font-size: 18px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+ 
+    .about-story { padding: 80px 4rem; max-width: 1200px; margin: 0 auto; }
+    .about-story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-story-img { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; }
+    .about-story-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-story-text h2 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
+    .about-story-text p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; }
+ 
+    .process { background: var(--off-white); padding: 80px 4rem; }
+    .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; max-width: 1100px; margin: 0 auto; position: relative; }
+    .process-steps::before { content:''; position: absolute; top: 36px; left: 12%; right: 12%; height: 2px; background: repeating-linear-gradient(90deg, var(--red) 0, var(--red) 8px, transparent 8px, transparent 16px); }
+    .process-step { text-align: center; padding: 0 16px; position: relative; }
+    .step-num { width: 72px; height: 72px; background: var(--red); color: white; border-radius: 50%; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(192,0,26,0.3); }
+    .process-step h3 { font-family: 'Playfair Display', serif; font-size: 17px; margin-bottom: 10px; color: var(--text); }
+    .process-step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+ 
+    .values { padding: 80px 4rem; max-width: 1200px; margin: 0 auto; }
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .value-card { padding: 36px 28px; border-left: 4px solid var(--red); background: var(--off-white); border-radius: 0 12px 12px 0; }
+    .value-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; color: var(--text); }
+    .value-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+ 
+    .contact-hero { background: var(--red); padding: 64px 4rem; text-align: center; }
+    .contact-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px,5vw,52px); color: white; font-weight: 900; margin-bottom: 16px; }
+    .contact-hero p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto; }
+ 
+    .contact-body { padding: 80px 4rem; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; }
+    .contact-info h2 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 32px; color: var(--text); }
+    .contact-item { display: flex; gap: 16px; margin-bottom: 28px; align-items: flex-start; }
+    .contact-item-icon { width: 48px; height: 48px; background: var(--red); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .contact-item-text h4 { font-size: 14px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .contact-item-text p { font-size: 16px; color: var(--text); line-height: 1.5; }
+    .contact-hours { margin-top: 40px; background: var(--off-white); border-radius: 12px; padding: 24px; }
+    .contact-hours h4 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 16px; color: var(--text); }
+    .hours-row { display: flex; justify-content: space-between; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #EEE; color: var(--text-muted); }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:last-child { font-weight: 500; color: var(--text); }
+ 
+    .contact-form h2 { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 32px; color: var(--text); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 13px 16px; border: 1.5px solid #E8D8D8; border-radius: 8px; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--text); background: white; outline: none; transition: border 0.2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--red); }
+    .form-group textarea { height: 130px; resize: vertical; }
+    .form-submit { background: var(--red); color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; letter-spacing: 0.5px; margin-top: 8px; }
+    .form-submit:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,0,26,0.3); }
+    .success-msg { display: none; background: #E8F5E9; border: 1px solid #A5D6A7; color: #2E7D32; padding: 16px; border-radius: 8px; font-size: 15px; margin-top: 16px; text-align: center; }
+ 
+    footer { background: var(--text); color: rgba(255,255,255,0.6); padding: 48px 4rem 24px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 24px; }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: white; margin-bottom: 12px; }
+    .footer-brand h3 span { color: var(--red-light); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { color: white; font-size: 15px; font-weight: 500; margin-bottom: 16px; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; cursor: pointer; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom { display: flex; justify-content: space-between; font-size: 13px; flex-wrap: wrap; gap: 8px; }
+ 
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .hero-content { padding: 3rem 2rem; }
+      .hero-stats { right: 2rem; gap: 24px; }
+      .collection-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .about-story-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .values-grid { grid-template-columns: 1fr; }
+      .contact-body { grid-template-columns: 1fr; padding: 48px 2rem; }
+      .footer-top { grid-template-columns: 1fr; }
+      .collections, .why, .banner, .about-hero, .about-story, .process, .values, .contact-hero { padding: 60px 2rem; }
     }
-
-    .apply-btn {
-      background: #1a73e8;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-top: 12px;
-      transition: background 0.2s;
-    }
-
-    .apply-btn:hover { background: #1558b0; }
-
-    /* CONTACT */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 32px;
-    }
-
     @media (max-width: 600px) {
-      .contact-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 32px; }
-      .job { flex-direction: column; align-items: flex-start; gap: 12px; }
-    }
-
-    .contact-info p {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      font-size: 16px;
-    }
-
-    .contact-info span.label { font-weight: bold; color: #202124; }
-
-    .form-group { margin-bottom: 16px; }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 6px;
-      color: #555;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
-      font-size: 15px;
-      outline: none;
-      transition: border 0.2s;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus { border-color: #1a73e8; }
-
-    .form-group textarea { height: 120px; resize: vertical; }
-
-    .submit-btn {
-      background: #1a73e8;
-      color: white;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.2s;
-    }
-
-    .submit-btn:hover { background: #1558b0; }
-
-    /* FOOTER */
-    footer {
-      background: #202124;
-      color: #aaa;
-      text-align: center;
-      padding: 24px;
-      font-size: 14px;
-      margin-top: 60px;
+      .collection-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { display: none; }
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
+ 
   <nav>
-    <div class="logo" onclick="showPage('home')">MyCompany</div>
+    <div class="nav-logo" onclick="showPage('home')">
+      <div class="nav-logo-icon">V</div>
+      <span class="nav-logo-text">Vijay <span>Garments</span></span>
+    </div>
     <div class="nav-links">
-      <a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a>
-      <a href="#" onclick="showPage('about')" id="nav-about">About Us</a>
-      <a href="#" onclick="showPage('careers')" id="nav-careers">Careers</a>
-      <a href="#" onclick="showPage('contact')" id="nav-contact">Contact Us</a>
+      <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+      <a onclick="showPage('about')" id="nav-about">About Us</a>
+      <a onclick="showPage('contact')" id="nav-contact">Contact Us</a>
     </div>
   </nav>
-
-  <!-- HOME PAGE -->
+ 
+  <!-- HOME -->
   <div class="page active" id="page-home">
-    <div class="hero">
-      <h1>Welcome to MyCompany</h1>
-      <p>We build products that make a difference.</p>
-      <button class="hero-btn" onclick="showPage('about')">Learn More</button>
-    </div>
-    <div class="section">
-      <h2>What We Do</h2>
-      <p>We are a passionate team dedicated to delivering world-class solutions for businesses of all sizes. From startups to enterprises, we have got you covered.</p>
-      <div class="cards">
-        <div class="card">
-          <div class="icon">🚀</div>
-          <h3>Fast Delivery</h3>
-          <p>We ship products quickly without compromising on quality.</p>
-        </div>
-        <div class="card">
-          <div class="icon">🔒</div>
-          <h3>Secure</h3>
-          <p>Security is at the core of everything we build.</p>
-        </div>
-        <div class="card">
-          <div class="icon">💡</div>
-          <h3>Innovative</h3>
-          <p>We stay ahead of the curve with cutting-edge technology.</p>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Est. 2026 — Sydney, Australia</div>
+        <h1>Crafted With<br/><em>Passion.</em><br/>Worn With Pride.</h1>
+        <p>Vijay Garments is a premium clothing manufacturer delivering exceptional quality garments for men, women, and kids across Australia and beyond.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('about')">Our Story</button>
+          <button class="btn-outline" onclick="showPage('contact')">Get In Touch</button>
         </div>
       </div>
-    </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Designs</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Categories</span></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Quality</span></div>
+      </div>
+    </section>
+ 
+    <section class="collections">
+      <div class="section-header">
+        <span class="section-tag">Our Collections</span>
+        <h2>Clothing for Every<br/>Member of the Family</h2>
+        <p>From the finest fabrics to flawless stitching — we manufacture garments that stand the test of time.</p>
+      </div>
+      <div class="collection-grid">
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&q=80" alt="Men's Collection"/>
+          <div class="collection-overlay">
+            <span class="collection-tag">Men's</span>
+            <h3>Men's Collection</h3>
+            <p>Formal, casual & workwear crafted to perfection</p>
+          </div>
+        </div>
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=80" alt="Women's Collection"/>
+          <div class="collection-overlay">
+            <span class="collection-tag">Women's</span>
+            <h3>Women's Collection</h3>
+            <p>Elegant designs with superior comfort & fit</p>
+          </div>
+        </div>
+        <div class="collection-card">
+          <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600&q=80" alt="Kids Collection"/>
+          <div class="collection-overlay">
+            <span class="collection-tag">Kids'</span>
+            <h3>Kids' Collection</h3>
+            <p>Durable, safe & playful clothes for little ones</p>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="why">
+      <div class="section-header">
+        <span class="section-tag">Why Choose Us</span>
+        <h2>The Vijay Garments Difference</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon">🧵</div><h3>Premium Fabrics</h3><p>We source only the finest materials — cotton, linen, and blended fabrics that feel great and last long.</p></div>
+        <div class="why-card"><div class="why-icon">✂️</div><h3>Expert Tailoring</h3><p>Every piece is cut and stitched by skilled craftspeople with decades of experience in the industry.</p></div>
+        <div class="why-card"><div class="why-icon">📦</div><h3>Bulk Orders</h3><p>We handle large volume orders efficiently — perfect for retailers, schools, and corporate clients.</p></div>
+        <div class="why-card"><div class="why-icon">🌿</div><h3>Sustainable</h3><p>Our processes are designed to minimise waste and environmental impact from start to finish.</p></div>
+      </div>
+    </section>
+ 
+    <section class="banner">
+      <h2>Ready to Place a Bulk Order?</h2>
+      <p>We work with retailers, brands, and businesses of all sizes. Let's create something great together.</p>
+      <button onclick="showPage('contact')">Contact Us Today</button>
+    </section>
   </div>
-
-  <!-- ABOUT PAGE -->
+ 
+  <!-- ABOUT -->
   <div class="page" id="page-about">
-    <div class="section">
-      <h2>About Us</h2>
-      <p>Founded in 2020, MyCompany started with a simple mission: to make technology accessible and useful for everyone. Today, we are a growing team of passionate professionals spread across the globe.</p>
-      <p>We believe in transparency, collaboration, and continuous improvement. Our culture is built on trust and a shared commitment to excellence.</p>
-      <h2 style="margin-top: 40px;">Meet the Team</h2>
-      <div class="team">
-        <div class="team-card">
-          <div class="avatar">JD</div>
-          <h3>Jane Doe</h3>
-          <p>CEO & Co-Founder</p>
+    <section class="about-hero">
+      <div class="about-hero-bg"></div>
+      <div class="about-hero-content">
+        <span class="section-tag" style="color:#FFB3BC;">Our Story</span>
+        <h1>Born in 2026.<br/>Built on Quality.</h1>
+        <p>Vijay Garments was founded with a single belief — that quality clothing should be accessible to everyone, made with pride and precision.</p>
+      </div>
+    </section>
+ 
+    <section class="about-story">
+      <div class="about-story-grid">
+        <div class="about-story-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Our factory"/>
         </div>
-        <div class="team-card">
-          <div class="avatar">MS</div>
-          <h3>Mark Smith</h3>
-          <p>CTO & Co-Founder</p>
-        </div>
-        <div class="team-card">
-          <div class="avatar">AL</div>
-          <h3>Amy Lee</h3>
-          <p>Head of Design</p>
-        </div>
-        <div class="team-card">
-          <div class="avatar">RK</div>
-          <h3>Raj Kumar</h3>
-          <p>Lead Engineer</p>
+        <div class="about-story-text">
+          <span class="section-tag">Who We Are</span>
+          <h2>A Manufacturer You Can Trust</h2>
+          <p>Founded in 2026, Vijay Garments started as a small workshop with big ambitions. Today, we are a full-scale garment manufacturer producing thousands of pieces across men's, women's, and kids' clothing every month.</p>
+          <p>We work with local and international brands, retailers, and wholesalers who trust us to deliver consistently — on time, every time. Our team is passionate about every stitch, every seam, and every garment that leaves our facility.</p>
+          <p>From design consultation to final delivery, we manage the entire manufacturing process in-house, giving our clients full confidence in quality and timelines.</p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- CAREERS PAGE -->
-  <div class="page" id="page-careers">
-    <div class="section">
-      <h2>Careers</h2>
-      <p>Join our team and help us build the future. We are always looking for talented, driven individuals who want to make an impact.</p>
-
-      <div style="margin-top: 32px;">
-        <div class="job">
-          <div>
-            <h3>Frontend Developer</h3>
-            <p>Sydney, Australia &nbsp;·&nbsp; Full-time</p>
-          </div>
-          <div style="text-align:right;">
-            <span class="job-badge">Engineering</span><br/>
-            <button class="apply-btn" onclick="alert('Thanks for your interest! Please email careers@mycompany.com')">Apply Now</button>
-          </div>
-        </div>
-        <div class="job">
-          <div>
-            <h3>Product Manager</h3>
-            <p>Remote &nbsp;·&nbsp; Full-time</p>
-          </div>
-          <div style="text-align:right;">
-            <span class="job-badge">Product</span><br/>
-            <button class="apply-btn" onclick="alert('Thanks for your interest! Please email careers@mycompany.com')">Apply Now</button>
-          </div>
-        </div>
-        <div class="job">
-          <div>
-            <h3>UX Designer</h3>
-            <p>Melbourne, Australia &nbsp;·&nbsp; Part-time</p>
-          </div>
-          <div style="text-align:right;">
-            <span class="job-badge">Design</span><br/>
-            <button class="apply-btn" onclick="alert('Thanks for your interest! Please email careers@mycompany.com')">Apply Now</button>
-          </div>
-        </div>
-        <div class="job">
-          <div>
-            <h3>Marketing Specialist</h3>
-            <p>Remote &nbsp;·&nbsp; Contract</p>
-          </div>
-          <div style="text-align:right;">
-            <span class="job-badge">Marketing</span><br/>
-            <button class="apply-btn" onclick="alert('Thanks for your interest! Please email careers@mycompany.com')">Apply Now</button>
-          </div>
-        </div>
+    </section>
+ 
+    <section class="process">
+      <div class="section-header">
+        <span class="section-tag">How We Work</span>
+        <h2>Our Manufacturing Process</h2>
+        <p>Every garment follows a rigorous process to ensure consistent, world-class quality.</p>
       </div>
-    </div>
+      <div class="process-steps">
+        <div class="process-step"><div class="step-num">01</div><h3>Design & Sampling</h3><p>We work with clients to finalise designs, patterns, and fabric swatches before production begins.</p></div>
+        <div class="process-step"><div class="step-num">02</div><h3>Fabric Sourcing</h3><p>Premium fabrics are selected and inspected for weight, texture, durability, and colour consistency.</p></div>
+        <div class="process-step"><div class="step-num">03</div><h3>Cutting & Stitching</h3><p>Expert cutters and machinists bring each design to life with precision and care at every step.</p></div>
+        <div class="process-step"><div class="step-num">04</div><h3>QC & Dispatch</h3><p>Each piece goes through strict quality control before being packed and dispatched to clients.</p></div>
+      </div>
+    </section>
+ 
+    <section class="values">
+      <div class="section-header">
+        <span class="section-tag">Our Values</span>
+        <h2>What Drives Us Every Day</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card"><h3>Quality First</h3><p>We never compromise on quality. Every garment must meet our strict standards before it leaves our facility — no exceptions.</p></div>
+        <div class="value-card"><h3>Customer Focus</h3><p>Our clients' success is our success. We listen, adapt, and go the extra mile to deliver exactly what is needed.</p></div>
+        <div class="value-card"><h3>Integrity</h3><p>Transparent pricing, honest timelines, and reliable delivery. We do what we say, every single time.</p></div>
+      </div>
+    </section>
   </div>
-
-  <!-- CONTACT PAGE -->
+ 
+  <!-- CONTACT -->
   <div class="page" id="page-contact">
-    <div class="section">
-      <h2>Contact Us</h2>
-      <p>Have a question or want to work with us? We would love to hear from you.</p>
-      <div class="contact-grid">
-        <div class="contact-info">
-          <p>📍 <span><span class="label">Address:</span> 123 George St, Sydney NSW 2000</span></p>
-          <p>📞 <span><span class="label">Phone:</span> +61 2 9000 0000</span></p>
-          <p>📧 <span><span class="label">Email:</span> hello@mycompany.com</span></p>
-          <p>🕐 <span><span class="label">Hours:</span> Mon–Fri, 9am – 5pm AEST</span></p>
+    <section class="contact-hero">
+      <h1>Get In Touch</h1>
+      <p>We'd love to hear from you. Send us a message or visit us at our facility.</p>
+    </section>
+    <div class="contact-body">
+      <div class="contact-info">
+        <h2>Contact Information</h2>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text"><h4>Address</h4><p>123 Garment Lane<br/>Sydney NSW 2000, Australia</p></div>
         </div>
-        <div>
-          <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" id="name" placeholder="John Smith" />
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="cemail" placeholder="john@example.com" />
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea id="message" placeholder="How can we help?"></textarea>
-          </div>
-          <button class="submit-btn" onclick="submitForm()">Send Message</button>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-text"><h4>Phone</h4><p>+61 2 9000 0000</p></div>
         </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div class="contact-item-text"><h4>Email</h4><p>hello@vijaygarments.com.au</p></div>
+        </div>
+        <div class="contact-hours">
+          <h4>Business Hours</h4>
+          <div class="hours-row"><span>Monday – Friday</span><span>9:00am – 5:30pm</span></div>
+          <div class="hours-row"><span>Saturday</span><span>9:00am – 1:00pm</span></div>
+          <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h2>Send Us a Message</h2>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="fname" placeholder="John"/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="lname" placeholder="Smith"/></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" id="femail" placeholder="john@example.com"/></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" id="fphone" placeholder="+61 4XX XXX XXX"/></div>
+        <div class="form-group">
+          <label>Enquiry Type</label>
+          <select id="ftype">
+            <option value="">Select an option...</option>
+            <option>Bulk Order Enquiry</option>
+            <option>Custom Design Request</option>
+            <option>Pricing & Quotes</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea id="fmessage" placeholder="Tell us about your requirements..."></textarea></div>
+        <button class="form-submit" onclick="submitContact()">Send Message →</button>
+        <div class="success-msg" id="success-msg">✅ Thank you! We have received your message and will get back to you within 1 business day.</div>
       </div>
     </div>
   </div>
-
-  <!-- FOOTER -->
+ 
   <footer>
-    © 2025 MyCompany. All rights reserved. &nbsp;·&nbsp;
-    <a href="#" onclick="showPage('contact')" style="color:#aaa;">Contact</a> &nbsp;·&nbsp;
-    <a href="#" onclick="showPage('careers')" style="color:#aaa;">Careers</a>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Vijay <span>Garments</span></h3>
+        <p>Premium garment manufacturer based in Sydney, Australia. Crafting quality clothing for men, women, and kids since 2026.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('about')">About Us</a>
+        <a onclick="showPage('contact')">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <a>Men's Clothing</a>
+        <a>Women's Clothing</a>
+        <a>Kids' Clothing</a>
+        <a>Bulk Orders</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vijay Garments. All rights reserved.</span>
+      <span>Sydney, NSW, Australia</span>
+    </div>
   </footer>
-
+ 
   <script>
     function showPage(name) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       document.getElementById('page-' + name).classList.add('active');
       document.getElementById('nav-' + name).classList.add('active');
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    function submitForm() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('cemail').value;
-      const message = document.getElementById('message').value;
-      if (!name || !email || !message) {
-        alert('Please fill in all fields.');
-        return;
-      }
-      alert('Thanks ' + name + '! We will get back to you at ' + email + ' soon.');
-      document.getElementById('name').value = '';
-      document.getElementById('cemail').value = '';
-      document.getElementById('message').value = '';
+    function submitContact() {
+      const fname = document.getElementById('fname').value;
+      const email = document.getElementById('femail').value;
+      const message = document.getElementById('fmessage').value;
+      if (!fname || !email || !message) { alert('Please fill in your name, email, and message.'); return; }
+      document.getElementById('success-msg').style.display = 'block';
+      ['fname','lname','femail','fphone','fmessage'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('ftype').value = '';
+      setTimeout(() => { document.getElementById('success-msg').style.display = 'none'; }, 6000);
     }
   </script>
-
 </body>
 </html>
